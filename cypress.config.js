@@ -1,8 +1,9 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require("cypress")
 
 module.exports = defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
+    baseUrl: "https://plat.vpos.xin/",
+    setupNodeEvents(on, config) {    // 插件
       // implement node event listeners here
     },
   },

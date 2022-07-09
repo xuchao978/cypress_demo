@@ -18,3 +18,10 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// 支持文件
+// 此文件用于放置可重用配置，如底层通用函数 or 局部配置
+beforeEach(() => {
+    cy.log(`当前环境变量为${JSON.stringify(Cypress.env())}`)
+    cy.log(`当前配置信息为${JSON.stringify(Cypress.config())}`)
+})

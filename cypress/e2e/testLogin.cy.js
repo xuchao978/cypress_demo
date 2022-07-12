@@ -1,15 +1,18 @@
 describe('登录',  () =>  {
 
-    const username = 'jane.lane'
-    const password = 'password123'
+    const brhId = '0224102031'
+    const username = 'x_requests'
+    const password = 'Aa123456!'
 
-    context('HTML 表单登录测试', () => {
-        it('登录成功,跳转到dashboard页', () => {
-            cy.visit('login')
-            cy.get('input[name="username"]').type(username)
-            cy.get('input[name="password"]').debug().type(`${password}{enter}`)
-            cy.url().should('include', '/dashboard')
-            cy.get('h1').should('contain', 'jane.lane')
+    beforeEach(() => {
+        cy.login(brhId, username, password)
+    })
+
+    context('访问', () => {
+        it('添加下级机构', () => {
+            cy.visit('/#/organizationalAdd?addSelect=1')
+            cy.url().should('include', '/#/organizationalAdd?addSelect=1')
+            cy.get('div[class="add_merchant"] p').should('contain', '在系统中录入下级机构信息')
             
         })
     })

@@ -25,18 +25,24 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
-// Cypress.Commands.add('login', () => {
-//     cy.request({
-//         method: 'POST',
-//         url: 'http://localhost:7077', 
-//         body:{
-//             user:{
-//                 email: 'jane.lane',
-//                 password: 'password123'
-//             }
-//         }
-//     })
-// .then(resp => {
-//     window.localStorage.setItem('jwt', resp.body.user.token)
-//     })
-// })
+Cypress.Commands.add('login', (brhId, username, password) => {
+    Cypress.log(`登录账号: ${brhId} | ${username} | ${password}`)
+    cy.request({
+        method: 'POST',
+        url: '/#/login', 
+        body:{
+            brhId: brhId,
+            username: username,
+            password: password
+        },
+        Headers: {
+            'Authorization': 'Basic ODAwMDAwMDAxMDQxMDphYzU2NGM0NTllMWI0MWJiYTM5MGFiMTQ3MTQxOGI3ZA',
+            'X-AUTHORIZATION':{"platformId":"2000000010","lang":"zh"}
+        }
+    })
+.then(resp => {
+    window.localStorage.setItem('jwt', resp.data.token)
+    })
+.should('have.status', 200)
+.and('include', '/clesrSettlementHome')
+})

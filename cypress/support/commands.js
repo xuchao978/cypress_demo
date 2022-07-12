@@ -25,24 +25,24 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
-Cypress.Commands.add('login', (brhId, username, password) => {
-    Cypress.log(`登录账号: ${brhId} | ${username} | ${password}`)
+Cypress.Commands.add('login', (brhId, username, password, scope) => {
+    cy.log(`登录账号: ${brhId} | ${username} | ${password}`)
     cy.request({
         method: 'POST',
-        url: '/#/login', 
+        url: '/biz/web/login', 
         body:{
             brhId: brhId,
             username: username,
-            password: password
+            password: password,
+            scope: "web"
         },
         Headers: {
             'Authorization': 'Basic ODAwMDAwMDAxMDQxMDphYzU2NGM0NTllMWI0MWJiYTM5MGFiMTQ3MTQxOGI3ZA',
-            'X-AUTHORIZATION':{"platformId":"2000000010","lang":"zh"}
+            'X-AUTHORIZATION':{"platformId":"2000000010","lang":"zh"},
         }
     })
 .then(resp => {
-    window.localStorage.setItem('jwt', resp.data.token)
+    // window.localStorage.setItem('token', resp.data.token)
+    cy.wrap(sessionStorage.setItem('token', resp.token))
     })
-.should('have.status', 200)
-.and('include', '/clesrSettlementHome')
 })

@@ -8,6 +8,7 @@ const { defineConfig } = require("cypress")
 module.exports = defineConfig({
   e2e: {
     baseUrl: "https://plat.vpos.xin",
+    experimentalSessionAndOrigin: true,
     setupNodeEvents(on, config) {    // 在浏览器上注册事件(插件)
       // implement node event listeners here
     },
